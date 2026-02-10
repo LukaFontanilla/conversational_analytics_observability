@@ -460,12 +460,6 @@ func searchConversations(token, mode string) ([]Conversation, error) {
 		return nil, fmt.Errorf("search failed with status %d", resp.StatusCode)
 	}
 
-	snippetLimit := 200
-	if len(body) < snippetLimit {
-		snippetLimit = len(body)
-	}
-	log.Printf("[searchConversations] Raw Body Snippet: %s", string(body[:snippetLimit]))
-
 	var conversations []Conversation
 	if err := json.Unmarshal(body, &conversations); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal JSON: %w (Body: %s)", err, string(body))
